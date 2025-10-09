@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="page-header">
+    <h1>Latest Posts</h1>
+    {% if query %}
+      <p>Search results for "<strong>{{ query }}</strong>"</p>
+    {% endif %}
+  </div>
+
+  {% if posts %}
+    <div class="posts">
+      {% for post in posts %}
+        <article class="post-card">
+          <h2><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h2>
+          <p class="meta">By {{ post.author.username }} — {{ post.created_at.strftime('%b %d, %Y') }}</p>
+          <p class="excerpt">{{ post.body[:200] }}{% if post.body|length > 200 %}...{% endif %}</p>
+          <div class="card-actions">
+            <a class="btn" href="{{ url_for('post_detail', post_id=post.id) }}">Read more</a>
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p>No posts yet. {% if current_user.is_authenticated %}<a href="{{ url_for('add_post') }}">Create first post</a>{% endif %}</p>
+  {% endif %}
+{% endblock %}
