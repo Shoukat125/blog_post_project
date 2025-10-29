@@ -7,8 +7,10 @@ import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET', 'change-this-secret')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:////tmp/blog.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+
 
 # Initialize extensions
 db = SQLAlchemy(app)
@@ -174,7 +176,6 @@ def search():
 # Run
 # Only needed for local development
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run()
 
 
