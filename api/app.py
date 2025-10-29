@@ -172,9 +172,8 @@ def search():
     return render_template('index.html', posts=posts, query=q)
 
 # Run
+# Only needed for local development
 if __name__ == '__main__':
-    from waitress import serve
-    import os
-    port = int(os.environ.get('PORT', 5000))
-    serve(app, host='0.0.0.0', port=port)
+    app.run(debug=True)
+
 
